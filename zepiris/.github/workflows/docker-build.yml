@@ -1,0 +1,32 @@
+name: Build and Export Docker Image
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      # Stable Compose project name so the built API image tag is predictable: ${COMPOSE_PROJECT_NAME}_api:latest
+      COMPOSE_PROJECT_NAME: zepiris
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install docker-compose (Compose V2 plugin wrapper)
+        run: |
+          printf '#!/bin/sh\nexec docker compose "$@"\n' | sudo tee /usr/local/bin/docker-compose >/dev/null
+          sudo chmod +x /usr/local/bin/docker-compose
+          docker-compose version
+
+      - name: Build Docker image
+        run: docker-compose build api
+
+      - name: Save Docker image to tarball
+        run: docker save -o zepiris-api-image.tar "${COMPOSE_PROJECT_NAME}_api:latest"
+
+      - name: Upload artifact for download
+        uses: actions/upload-artifact@v4
+        with:
+          name: docker-image
+          path: zepiris-api-image.tar

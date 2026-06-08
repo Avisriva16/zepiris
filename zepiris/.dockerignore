@@ -1,0 +1,39 @@
+# Git / VCS
+.git
+.github
+.gitignore
+
+# Python
+.venv
+venv
+__pycache__
+*.py[cod]
+*$py.class
+.pytest_cache
+.mypy_cache
+.ruff_cache
+*.egg-info
+dist
+build
+
+# IDE / OS
+.idea
+.vscode
+.DS_Store
+
+# Local env (never bake secrets)
+.env.example
+
+# Docs & misc (not needed inside API / ML runtime images)
+docs
+*.md
+!README.md
+
+# Compose / CI (not needed in image)
+docker-compose*.yml
+compose*.yml
+.pre-commit-config.yaml
+sonar-project.properties
+
+tests
+scripts

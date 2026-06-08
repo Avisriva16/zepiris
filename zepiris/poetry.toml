@@ -1,0 +1,3 @@
+# `poetry install` creates the virtualenv at ./.venv (see in-project below).
+[virtualenvs]
+in-project = true

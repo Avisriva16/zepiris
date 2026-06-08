@@ -1,0 +1,8 @@
+*.pth
+*.tflite
+*.onnx
+*.onnx.data
+*.tflite
+.venv/
+__pycache__/
+.DS_Store
